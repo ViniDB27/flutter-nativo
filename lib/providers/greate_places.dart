@@ -1,8 +1,11 @@
+import 'dart:io';
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
+import 'package:nativo/models/location.dart';
 import 'package:nativo/models/place.dart';
 
 class GreatPlaces with ChangeNotifier {
-
   List<Place> _items = [];
 
   List<Place> get items {
@@ -17,8 +20,18 @@ class GreatPlaces with ChangeNotifier {
     return _items[index];
   }
 
-  void addPlace(Place place) {
-    _items.add(place);
+  void addPlace(String title, File image) {
+    _items.add(
+      Place(
+        id: Random().nextDouble().toString(),
+        title: title,
+        image: image,
+        location: Location(
+          latitude: 0,
+          longitude: 0,
+        ),
+      ),
+    );
     notifyListeners();
   }
 
@@ -26,6 +39,4 @@ class GreatPlaces with ChangeNotifier {
     _items.removeWhere((place) => place.id == id);
     notifyListeners();
   }
-
-
 }
